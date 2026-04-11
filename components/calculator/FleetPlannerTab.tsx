@@ -3,6 +3,8 @@ import { useState, useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import type { CalcResults, FleetVehicle } from '@/types';
 import { fmt, pct } from '@/lib/fmt';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const PRESETS: Record<string, Omit<FleetVehicle, 'name'|'count'>> = {
   'Cargo Van':        { stops: 12, rate: 85,  laborD: 280, fuelD: 22, fixedMo: 1100, daysWk: 6 },
