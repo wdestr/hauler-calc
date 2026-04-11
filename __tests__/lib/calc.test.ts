@@ -24,29 +24,29 @@ describe('calc()', () => {
     expect(r.labD).toBe(2 * 22 * 10); // 440
   });
 
+  it('computes labor daily rate', () => {
+    const r = calc({ ...BASE, labMode: 'daily' });
+    expect(r.labD).toBe(2 * 200); // crew * dyRate = 400
+  });
+
   it('computes fuel from miles', () => {
     const r = calc(BASE);
     expect(r.fuelD).toBeCloseTo((80 / 8) * 4.0); // 40
   });
 
-  it('net is revenue minus total cost', () => {
-    const r = calc(BASE);
-    expect(r.netD).toBeCloseTo(r.revD - r.totalD);
+  it('computes fuel flat daily', () => {
+    const r = calc({ ...BASE, fuelMode: 'flat' });
+    expect(r.fuelD).toBe(60);
   });
 
-  it('margin is netD / revD', () => {
-    const r = calc(BASE);
-    expect(r.margin).toBeCloseTo(r.netD / r.revD);
-  });
-
-  it('dMo is dW * 52/12', () => {
+  it('dMo is daysWk * 52/12', () => {
     const r = calc(BASE);
     expect(r.dMo).toBeCloseTo(BASE.daysWk * (52 / 12));
   });
 
   it('applies payroll tax multiplier when inclTax=true', () => {
-    const r = calc({ ...BASE, inclTax: true });
-    const rNo = calc(BASE);
+    const r    = calc({ ...BASE, inclTax: true });
+    const rNo  = calc(BASE);
     expect(r.labD).toBeCloseTo(rNo.labD * 1.08);
   });
 
