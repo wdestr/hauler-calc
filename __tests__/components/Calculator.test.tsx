@@ -12,7 +12,8 @@ function Wrapper() {
 describe('Calculator', () => {
   it('renders revenue section', () => {
     render(<Wrapper />);
-    expect(screen.getByText(/revenue/i)).toBeInTheDocument();
+    const els = screen.getAllByText(/revenue/i);
+    expect(els.length).toBeGreaterThan(0);
   });
   it('shows net income metric tile', () => {
     render(<Wrapper />);
@@ -20,8 +21,8 @@ describe('Calculator', () => {
   });
   it('toggles between per-stop and flat revenue modes', () => {
     render(<Wrapper />);
-    const flatBtn = screen.getByRole('button', { name: /flat daily/i });
-    fireEvent.click(flatBtn);
+    const flatBtns = screen.getAllByRole('button', { name: /flat daily/i });
+    fireEvent.click(flatBtns[0]); // Click the first "Flat Daily" button (Revenue card)
     expect(screen.getByLabelText(/daily revenue/i)).toBeInTheDocument();
   });
 });

@@ -88,7 +88,7 @@ export default function Calculator({
           {/* Fuel */}
           <Card icon="⛽" title="Fuel">
             <ToggleGroup
-              options={[{ val: 'miles', label: 'By Miles' }, { val: 'flat', label: 'Flat Cost' }]}
+              options={[{ val: 'miles', label: 'By Miles' }, { val: 'flat', label: 'Flat Daily' }]}
               active={inputs.fuelMode}
               onSelect={v => onInputsChange({ ...inputs, fuelMode: v as 'miles'|'flat' })}
             />
@@ -150,7 +150,7 @@ export default function Calculator({
           />
 
           <div className="grid grid-cols-3 gap-2.5 mb-3.5">
-            <MetricTile label="Gross"      value={fmt(R.revD   * mul)} colorClass="border-t-blue-600" />
+            <MetricTile label="Revenue"    value={fmt(R.revD   * mul)} colorClass="border-t-blue-600" testId="result-revenue" />
             <MetricTile label="Total Cost" value={fmt(R.totalD * mul)} colorClass="border-t-amber-500" />
             <MetricTile label="Net Income" value={fmt(R.netD   * mul)}
               colorClass={R.netD >= 0 ? 'border-t-green-600' : 'border-t-red-600'}
