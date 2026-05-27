@@ -13,12 +13,12 @@ function write(ps: LocalProfile[]) {
   try { localStorage.setItem(PROFILES_KEY, JSON.stringify(ps)); } catch { /* quota/private browsing */ }
 }
 
-export const getProfiles = (): LocalProfile[] => read();
+export function getProfiles(): LocalProfile[] { return read(); }
 
 export function saveProfile(name: string, state: CalcInputs): LocalProfile[] | false {
   const ps = read();
   if (ps.length >= MAX_PROFILES) return false;
-  const updated = [...ps, { id: `profile_${Date.now()}`, name, createdAt: new Date().toISOString(), state }];
+  const updated = [...ps, { id: crypto.randomUUID(), name, createdAt: new Date().toISOString(), state }];
   write(updated);
   return updated;
 }

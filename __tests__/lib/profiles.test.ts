@@ -16,8 +16,9 @@ describe('profiles', () => {
   it('saves a profile', () => {
     const ps = saveProfile('Route A', S);
     expect(ps).not.toBe(false);
-    expect((ps as any[]).length).toBe(1);
-    expect((ps as any[])[0].name).toBe('Route A');
+    if (ps === false) throw new Error('unexpected false');
+    expect(ps).toHaveLength(1);
+    expect(ps[0].name).toBe('Route A');
   });
   it('persists across calls', () => { saveProfile('Route A', S); expect(getProfiles()).toHaveLength(1); });
   it('blocks save at max capacity', () => {

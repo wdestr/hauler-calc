@@ -59,6 +59,7 @@ export default function ProfileBar({ currentInputs, onLoad }: Props) {
     <div className="flex flex-wrap items-center gap-2 px-5 py-2 bg-blue-50 border-b border-slate-200 text-sm">
       <span className="text-xs font-bold uppercase tracking-widest text-blue-600">📋 Profile:</span>
       <select value={activeId ?? ''} onChange={e => handleSelect(e.target.value)}
+        aria-label="Select saved profile"
         className="text-sm font-semibold px-2 py-1 border border-slate-200 rounded-lg text-slate-800 bg-white">
         <option value="">— Unsaved / Working —</option>
         {profiles.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
@@ -68,11 +69,11 @@ export default function ProfileBar({ currentInputs, onLoad }: Props) {
         + Save Current
       </button>
       {active && <>
-        <button onClick={() => handleRename(active.id)}
+        <button onClick={() => handleRename(active.id)} aria-label="Rename profile"
           className="px-2 py-1 border border-slate-200 rounded-lg text-xs font-bold text-slate-700">
           ✎ Rename
         </button>
-        <button onClick={() => handleDelete(active.id)}
+        <button onClick={() => handleDelete(active.id)} aria-label="Delete profile"
           className="px-2 py-1 border border-red-400 rounded-lg text-xs font-bold text-red-600">
           🗑 Delete
         </button>
