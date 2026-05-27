@@ -4,17 +4,20 @@ import Calculator from '@/components/calculator/Calculator';
 import CashFlowTab from '@/components/calculator/CashFlowTab';
 import W2v1099Tab from '@/components/calculator/W2v1099Tab';
 import FleetPlannerTab from '@/components/calculator/FleetPlannerTab';
+import TruckAcquisitionTab from '@/components/calculator/TruckAcquisitionTab';
+import ProfileBar from '@/components/calculator/ProfileBar';
 import { calc } from '@/lib/calc';
 import { DEFAULTS } from '@/lib/defaults';
 import type { CalcInputs } from '@/types';
 
-type Tab = 'calc' | 'cashflow' | 'w2v1099' | 'fleet';
+type Tab = 'calc' | 'cashflow' | 'w2v1099' | 'fleet' | 'truck';
 
 const TABS: { id: Tab; label: string; pro: boolean }[] = [
-  { id: 'calc',     label: 'Calculator',   pro: false },
-  { id: 'cashflow', label: 'Cash Flow',    pro: true },
-  { id: 'w2v1099',  label: 'W-2 vs 1099', pro: true },
-  { id: 'fleet',    label: 'Fleet Planner', pro: true },
+  { id: 'calc',     label: 'Calculator',        pro: false },
+  { id: 'cashflow', label: 'Cash Flow',          pro: true  },
+  { id: 'w2v1099',  label: 'W-2 vs 1099',       pro: true  },
+  { id: 'fleet',    label: 'Fleet Planner',      pro: true  },
+  { id: 'truck',    label: '🚛 Truck Acquisition', pro: false },
 ];
 
 export default function CalculatorPage() {
@@ -41,10 +44,14 @@ export default function CalculatorPage() {
       </div>
 
       {/* Tab content */}
+      {activeTab === 'calc' && (
+        <ProfileBar currentInputs={inputs} onLoad={setInputs} />
+      )}
       {activeTab === 'calc'     && <Calculator inputs={inputs} onInputsChange={setInputs} />}
       {activeTab === 'cashflow' && <CashFlowTab results={results} />}
       {activeTab === 'w2v1099' && <W2v1099Tab  results={results} />}
       {activeTab === 'fleet'    && <FleetPlannerTab results={results} />}
+      {activeTab === 'truck'    && <TruckAcquisitionTab calInputs={inputs} onCalcInputsChange={setInputs} />}
     </>
   );
 }
