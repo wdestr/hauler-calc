@@ -85,3 +85,39 @@ export type FleetVehicle = {
   fixedMo: number;
   daysWk: number;
 };
+
+export interface TruckInputs {
+  rentCost: number; rentMaintIncluded: boolean; rentMaint: number;
+  leasePmt: number; leaseTerm: number; leaseCapReduction: number;
+  leaseBuyoutPct: number; leaseOrigValue: number; leaseFullMaint: boolean; leaseMaint: number;
+  loanPrice: number; loanDown: number; loanRate: number; loanTerm: number;
+  loanResale: number; loanMaint: number;
+  cashPrice: number; cashResale: number; cashLife: number; cashMaint: number;
+  icRate: number;
+}
+
+export interface TruckModeResult {
+  monthly: number;
+  fiveYr: number;
+  cps: number | null; // cost per stop; null when stopsPerDay === 0
+}
+
+export interface TruckResults {
+  rent:  TruckModeResult;
+  lease: TruckModeResult & { buyoutAmt: number };
+  loan:  TruckModeResult & { monthlyPayment: number };
+  cash:  TruckModeResult;
+  ic:    TruckModeResult & { rate: number };
+  stopsPerMonth: number;
+  dMo: number;
+  leaseTerm: number;
+  loanTerm: number;
+  leaseBuyoutAmt: number;
+}
+
+export interface LocalProfile {
+  id: string;
+  name: string;
+  createdAt: string;
+  state: CalcInputs;
+}
