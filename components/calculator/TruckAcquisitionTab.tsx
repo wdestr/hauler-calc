@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { calcTruck } from '@/lib/calcTruck';
 import { getProfiles } from '@/lib/profiles';
 import type { TruckInputs, CalcInputs, LocalProfile } from '@/types';
@@ -35,6 +35,8 @@ function calcProfileMargin(
   const insD = (ps.insAuto + ps.insGl + ps.insCargo + ps.insWc) / dMo;
   const ovrD = (ps.ovrPermits + ps.ovrSoft + ps.ovrOther) / dMo;
   const claimsD = (revPerMonth / dMo) * (ps.claimsRate / 100);
+  // modeMonthly REPLACES the profile's existing vehicle costs (vehPmt/vehMaint/vehRepair)
+  // — this answers "what would margin be if you switched to this acquisition mode?"
   const total =
     mode === 'ic'
       ? icRate * stops * dMo + (fuelD + insD + ovrD + claimsD) * dMo
@@ -126,9 +128,11 @@ export default function TruckAcquisitionTab({
   const [icBanner, setIcBanner] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [profiles, setProfiles] = useState<LocalProfile[]>([]);
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setProfiles(getProfiles());
+    return () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current); };
   }, []);
 
   const T = useMemo(
@@ -172,7 +176,8 @@ export default function TruckAcquisitionTab({
       onCalcInputsChange({ ...calInputs, vehPmt: vp, vehMaint: vm });
       const label = mode.charAt(0).toUpperCase() + mode.slice(1);
       setToast(`Vehicle costs updated from ${label} scenario.`);
-      setTimeout(() => setToast(null), 3000);
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = setTimeout(() => setToast(null), 3000);
     }
   }
 
