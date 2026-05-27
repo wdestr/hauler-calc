@@ -112,7 +112,11 @@ export interface TruckResults {
   dMo: number;
   leaseTerm: number;
   loanTerm: number;
-  leaseBuyoutAmt: number;
+}
+
+export interface CalcContext {
+  stopsPerDay: number;
+  daysWk: number;
 }
 
 export interface LocalProfile {

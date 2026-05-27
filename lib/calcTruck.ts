@@ -1,7 +1,6 @@
 // lib/calcTruck.ts — formulas match spec exactly
-import type { TruckInputs, TruckResults } from '@/types';
-
-interface CalcContext { stopsPerDay: number; daysWk: number; }
+// 5-year normalized comparison: lease extended at same rate if term < 60 months
+import type { TruckInputs, TruckResults, CalcContext } from '@/types';
 
 export function calcTruck(i: TruckInputs, ctx: CalcContext): TruckResults {
   const { stopsPerDay, daysWk } = ctx;
@@ -42,6 +41,6 @@ export function calcTruck(i: TruckInputs, ctx: CalcContext): TruckResults {
     cash:  { monthly: cashMo,  fiveYr: cashFiveYr,   cps: cps(cashMo) },
     ic:    { monthly: icMo,    fiveYr: icMo * 60,    cps: cps(icMo),    rate: i.icRate },
     stopsPerMonth: spm, dMo, leaseTerm: i.leaseTerm,
-    loanTerm: i.loanTerm, leaseBuyoutAmt: buyoutAmt,
+    loanTerm: i.loanTerm,
   };
 }
