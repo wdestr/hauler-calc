@@ -56,21 +56,21 @@ export default function ProfileBar({ currentInputs, onLoad }: Props) {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2 px-5 py-2 bg-blue-50 border-b border-slate-200 text-sm">
-      <span className="text-xs font-bold uppercase tracking-widest text-blue-600">📋 Profile:</span>
+    <div className="flex flex-wrap items-center gap-2 px-5 py-2 bg-brand-50 border-b border-line text-sm">
+      <span className="text-xs font-bold uppercase tracking-widest text-brand-600">Profile:</span>
       <select value={activeId ?? ''} onChange={e => handleSelect(e.target.value)}
         aria-label="Select saved profile"
-        className="text-sm font-semibold px-2 py-1 border border-slate-200 rounded-lg text-slate-800 bg-white">
+        className="text-sm font-semibold px-2 py-1 border border-line rounded-lg text-ink bg-surface">
         <option value="">— Unsaved / Working —</option>
         {profiles.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
       </select>
       <button onClick={handleSave} disabled={atMax}
-        className="px-3 py-1 bg-blue-600 text-white rounded-lg text-xs font-bold disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed">
+        className="px-3 py-1 bg-brand-600 text-white rounded-lg text-xs font-bold disabled:bg-line disabled:text-faint disabled:cursor-not-allowed">
         + Save Current
       </button>
       {active && <>
         <button onClick={() => handleRename(active.id)} aria-label="Rename profile"
-          className="px-2 py-1 border border-slate-200 rounded-lg text-xs font-bold text-slate-700">
+          className="px-2 py-1 border border-line rounded-lg text-xs font-bold text-ink-soft">
           ✎ Rename
         </button>
         <button onClick={() => handleDelete(active.id)} aria-label="Delete profile"

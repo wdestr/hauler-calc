@@ -44,7 +44,7 @@ export default function W2v1099Tab({ results: R }: { results: CalcResults }) {
 
   return (
     <div className="max-w-6xl mx-auto px-5 py-6">
-      <h2 className="text-lg font-bold text-slate-800 mb-4">W-2 vs 1099 Analyzer</h2>
+      <h2 className="text-lg font-bold text-ink mb-4">W-2 vs 1099 Analyzer</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-5">
         {[
           { label: 'W-2 Hourly Wage ($)', val: wage,    set: setWage },
@@ -53,17 +53,17 @@ export default function W2v1099Tab({ results: R }: { results: CalcResults }) {
           { label: '1099 Markup (%)',      val: markup,  set: setMarkup },
           { label: 'Risk Reserve ($/yr)',  val: riskRes, set: setRiskRes },
         ].map(({ label, val, set }) => (
-          <label key={label} className="block text-xs font-bold uppercase text-slate-500">
+          <label key={label} className="block text-xs font-bold uppercase text-muted">
             {label}
             <input type="number" value={val} onChange={e => set(+e.target.value)}
-              className="mt-1 w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" />
+              className="mt-1 w-full border border-line rounded-lg px-3 py-2 text-sm" />
           </label>
         ))}
       </div>
-      <div className="bg-white border border-slate-200 rounded-xl p-4 mb-4 h-56">
+      <div className="bg-surface border border-line rounded-xl p-4 mb-4 h-56">
         <Bar data={data} options={{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }} />
       </div>
-      <div className={`rounded-xl p-4 text-sm font-medium ${analysis.cheaper === 'w2' ? 'bg-blue-50 text-blue-800' : 'bg-amber-50 text-amber-800'}`}>
+      <div className={`rounded-xl p-4 text-sm font-medium ${analysis.cheaper === 'w2' ? 'bg-brand-50 text-brand-800' : 'bg-amber-50 text-amber-800'}`}>
         {analysis.cheaper === 'w2' ? 'W-2 employees' : '1099 contractors'} are cheaper by <strong>{fmt(analysis.saving)}/yr</strong>
         {'  '} · Cost/stop: W-2 {fmt(analysis.w2cps, 2)} vs 1099 {fmt(analysis.c1099cps, 2)}
       </div>

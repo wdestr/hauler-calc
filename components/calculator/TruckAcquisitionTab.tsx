@@ -45,7 +45,7 @@ function calcProfileMargin(
 }
 
 function marginClass(m: number | null): string {
-  if (m === null) return 'text-slate-400';
+  if (m === null) return 'text-faint';
   if (m >= 0.15) return 'text-green-700 font-semibold';
   if (m >= 0.05) return 'text-amber-600 font-semibold';
   return 'text-red-600 font-semibold';
@@ -80,20 +80,20 @@ function NumInput({
 }) {
   return (
     <div className="mb-3">
-      <label htmlFor={id} className="block text-xs font-semibold text-slate-600 mb-1">{label}</label>
+      <label htmlFor={id} className="block text-xs font-semibold text-ink-soft mb-1">{label}</label>
       <div className="relative flex items-center">
-        {prefix && <span className="absolute left-3 text-slate-400 text-sm pointer-events-none">{prefix}</span>}
+        {prefix && <span className="absolute left-3 text-faint text-sm pointer-events-none">{prefix}</span>}
         <input
           id={id} type="number" value={value} min={min} max={max} step={step}
           onChange={e => onChange(Number(e.target.value))}
-          className={`w-full border border-slate-200 rounded-lg py-2 text-sm font-medium text-slate-800
-            focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100
+          className={`w-full border border-line rounded-lg py-2 text-sm font-medium text-ink
+            focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100
             ${prefix ? 'pl-7' : 'pl-3'} ${suffix ? 'pr-10' : 'pr-3'}`}
           aria-describedby={hint ? `${id}-hint` : undefined}
         />
-        {suffix && <span className="absolute right-3 text-slate-400 text-sm pointer-events-none">{suffix}</span>}
+        {suffix && <span className="absolute right-3 text-faint text-sm pointer-events-none">{suffix}</span>}
       </div>
-      {hint && <p id={`${id}-hint`} className="text-xs text-slate-400 mt-1">{hint}</p>}
+      {hint && <p id={`${id}-hint`} className="text-xs text-faint mt-1">{hint}</p>}
     </div>
   );
 }
@@ -102,11 +102,11 @@ function Card({ icon, title, children, action }: {
   icon: string; title: string; children: React.ReactNode; action?: React.ReactNode;
 }) {
   return (
-    <div className="bg-white border border-slate-200 rounded-xl shadow-sm mb-4">
-      <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between gap-2">
+    <div className="bg-surface border border-line rounded-xl shadow-[var(--shadow-plate)] mb-4">
+      <div className="px-4 py-3 border-b border-line flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <span className="text-base">{icon}</span>
-          <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">{title}</h3>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-muted">{title}</h3>
         </div>
         {action}
       </div>
@@ -199,12 +199,12 @@ export default function TruckAcquisitionTab({
     <div className="max-w-6xl mx-auto px-5 py-7">
 
       {/* Context strip */}
-      <div className="flex flex-wrap items-center gap-3 mb-4 bg-blue-50 border border-blue-100 rounded-xl px-4 py-2 text-sm text-blue-800">
+      <div className="flex flex-wrap items-center gap-3 mb-4 bg-brand-50 border border-brand-100 rounded-xl px-4 py-2 text-sm text-brand-800">
         <span>📍 Context:</span>
         <span className="font-semibold">{calInputs.stopsPerDay} stops/day</span>
-        <span className="text-blue-400">·</span>
+        <span className="text-brand-400">·</span>
         <span className="font-semibold">{calInputs.daysWk} days/week</span>
-        <span className="text-xs text-blue-500 italic">(edit on Calculator tab)</span>
+        <span className="text-xs text-brand-500 italic">(edit on Calculator tab)</span>
       </div>
 
       {/* IC banner */}
@@ -231,10 +231,10 @@ export default function TruckAcquisitionTab({
               <NumInput label="Monthly Maintenance" id="rentMaint" value={inputs.rentMaint}
                 onChange={v => set('rentMaint', v)} prefix="$" />
             </div>
-            <label className="flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer">
+            <label className="flex items-center gap-2 text-xs font-semibold text-ink-soft cursor-pointer">
               <input type="checkbox" checked={inputs.rentMaintIncluded}
                 onChange={e => set('rentMaintIncluded', e.target.checked)}
-                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                className="rounded border-line-strong text-brand-600 focus:ring-brand-500" />
               Maintenance included in rent
             </label>
           </Card>
@@ -256,10 +256,10 @@ export default function TruckAcquisitionTab({
               <NumInput label="Monthly Maintenance" id="leaseMaint" value={inputs.leaseMaint}
                 onChange={v => set('leaseMaint', v)} prefix="$" />
             </div>
-            <label className="flex items-center gap-2 text-xs font-semibold text-slate-600 cursor-pointer mt-1">
+            <label className="flex items-center gap-2 text-xs font-semibold text-ink-soft cursor-pointer mt-1">
               <input type="checkbox" checked={inputs.leaseFullMaint}
                 onChange={e => set('leaseFullMaint', e.target.checked)}
-                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                className="rounded border-line-strong text-brand-600 focus:ring-brand-500" />
               Full maintenance included
             </label>
           </Card>
@@ -302,8 +302,8 @@ export default function TruckAcquisitionTab({
             <NumInput label="IC Rate per Stop" id="icRate" value={inputs.icRate}
               onChange={v => set('icRate', v)} prefix="$" step={0.01}
               hint="Replaces labor + vehicle cost when applied" />
-            <div className="mt-1 text-xs text-slate-400">
-              Monthly IC cost: <strong className="text-slate-600">{$(inputs.icRate * calInputs.stopsPerDay * T.dMo)}</strong>
+            <div className="mt-1 text-xs text-faint">
+              Monthly IC cost: <strong className="text-ink-soft">{$(inputs.icRate * calInputs.stopsPerDay * T.dMo)}</strong>
               {' '}({calInputs.stopsPerDay} stops/day × {T.dMo.toFixed(1)} days/mo)
             </div>
           </Card>
@@ -312,22 +312,22 @@ export default function TruckAcquisitionTab({
 
         {/* RIGHT: Comparison Table */}
         <div className="xl:sticky xl:top-5">
-          <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-            <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2">
-              <span className="text-base">📊</span>
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500">5-Year Comparison</h3>
+          <div className="bg-surface border border-line rounded-xl shadow-[var(--shadow-plate)] overflow-hidden">
+            <div className="px-4 py-3 border-b border-line flex items-center gap-2">
+              <span className="text-base"></span>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-muted">5-Year Comparison</h3>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100">
+                  <tr className="text-xs font-bold uppercase tracking-wider text-muted border-b border-line">
                     <th className="text-left px-4 py-2">Mode</th>
                     <th className="text-right px-3 py-2">Monthly</th>
                     <th className="text-right px-3 py-2">Cost/Stop</th>
                     <th className="text-right px-3 py-2">5-Year Total</th>
                     <th className="text-right px-3 py-2">vs. Cheapest</th>
                     {showProfileCols && profiles.map(p => (
-                      <th key={p.id} className="text-right px-3 py-2 text-blue-600 min-w-[90px]">{p.name}</th>
+                      <th key={p.id} className="text-right px-3 py-2 text-brand-600 min-w-[90px]">{p.name}</th>
                     ))}
                     <th className="px-3 py-2" />
                   </tr>
@@ -341,8 +341,8 @@ export default function TruckAcquisitionTab({
 
                     return (
                       <tr key={row.key}
-                        className={`border-b border-slate-50 ${isCheapest ? 'bg-green-50' : 'hover:bg-slate-50'}`}>
-                        <td className="px-4 py-3 font-semibold text-slate-700 whitespace-nowrap">
+                        className={`border-b border-paper ${isCheapest ? 'bg-green-50' : 'hover:bg-paper'}`}>
+                        <td className="px-4 py-3 font-semibold text-ink-soft whitespace-nowrap">
                           {row.label}
                           {isCheapest && (
                             <span className="ml-2 text-xs bg-green-100 text-green-700 rounded-full px-1.5 py-0.5 font-bold">
@@ -350,23 +350,23 @@ export default function TruckAcquisitionTab({
                             </span>
                           )}
                         </td>
-                        <td className="text-right px-3 py-3 text-slate-700">{$(row.monthly)}</td>
-                        <td className="text-right px-3 py-3 text-slate-600">
-                          {row.cps !== null ? $(row.cps, 2) : <span className="text-slate-300">—</span>}
+                        <td className="text-right px-3 py-3 text-ink-soft">{$(row.monthly)}</td>
+                        <td className="text-right px-3 py-3 text-ink-soft">
+                          {row.cps !== null ? $(row.cps, 2) : <span className="text-line-strong">—</span>}
                         </td>
-                        <td className="text-right px-3 py-3 font-semibold text-slate-800">
+                        <td className="text-right px-3 py-3 font-semibold text-ink">
                           {$(row.fiveYr)}
                           {row.key === 'lease' && inputs.leaseTerm < 60 && <sup className="text-xs ml-0.5">†</sup>}
                           {row.key === 'loan' && inputs.loanTerm > 60 && <sup className="text-xs ml-0.5">‡</sup>}
                         </td>
                         <td className="text-right px-3 py-3">
                           {row.key === 'ic' ? (
-                            <span className="text-xs text-slate-400 italic">replaces labor+vehicle</span>
+                            <span className="text-xs text-faint italic">replaces labor+vehicle</span>
                           ) : vs !== null ? (
-                            <span className={vs === 0 ? 'text-green-700 font-semibold' : 'text-slate-600'}>
+                            <span className={vs === 0 ? 'text-green-700 font-semibold' : 'text-ink-soft'}>
                               {vs === 0 ? '—' : `+${$(vs)}`}
                             </span>
-                          ) : <span className="text-slate-300">—</span>}
+                          ) : <span className="text-line-strong">—</span>}
                         </td>
                         {showProfileCols && profiles.map(p => {
                           const m = calcProfileMargin(row.key, row.monthly, p.state, inputs.icRate);
@@ -379,7 +379,7 @@ export default function TruckAcquisitionTab({
                         <td className="px-3 py-3">
                           <button
                             onClick={() => useTruckMode(row.key)}
-                            className="whitespace-nowrap px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 transition-colors">
+                            className="whitespace-nowrap px-3 py-1.5 bg-brand-600 text-white text-xs font-bold rounded-lg hover:bg-brand-700 transition-colors">
                             Use in Calc →
                           </button>
                         </td>
@@ -391,7 +391,7 @@ export default function TruckAcquisitionTab({
             </div>
 
             {/* footnotes */}
-            <div className="px-4 py-3 border-t border-slate-100 text-xs text-slate-400 space-y-1">
+            <div className="px-4 py-3 border-t border-line text-xs text-faint space-y-1">
               {inputs.leaseTerm < 60 && (
                 <p>† Lease term is {inputs.leaseTerm} months; 5-year total assumes renewal at same rate.</p>
               )}
@@ -409,7 +409,7 @@ export default function TruckAcquisitionTab({
 
       {/* Toast */}
       {toast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-sm font-semibold
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-ink text-white text-sm font-semibold
           px-5 py-3 rounded-xl shadow-lg z-50 pointer-events-none">
           {toast}
         </div>

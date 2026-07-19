@@ -59,18 +59,18 @@ export default function FleetPlannerTab({ results: R }: { results: CalcResults }
   return (
     <div className="max-w-6xl mx-auto px-5 py-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-slate-800">Fleet Planner</h2>
+        <h2 className="text-lg font-bold text-ink">Fleet Planner</h2>
         <button onClick={() => setVehicles(p => [...p, { ...DEFAULT_FLEET[0], name: 'Cargo Van', ...PRESETS['Cargo Van'] }])}
-          className="text-xs font-semibold text-blue-700 border border-blue-200 rounded-lg px-3 py-1.5 hover:bg-blue-50">
+          className="text-xs font-semibold text-brand-700 border border-brand-200 rounded-lg px-3 py-1.5 hover:bg-brand-50">
           + Add Vehicle
         </button>
       </div>
 
       {vehicles.map((fv, i) => (
-        <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 mb-3">
+        <div key={i} className="bg-surface border border-line rounded-xl p-4 mb-3">
           <div className="flex items-center justify-between mb-3">
             <select value={fv.name} onChange={e => applyPreset(i, e.target.value)}
-              className="text-sm font-semibold border border-slate-200 rounded-lg px-2 py-1">
+              className="text-sm font-semibold border border-line rounded-lg px-2 py-1">
               {Object.keys(PRESETS).map(k => <option key={k}>{k}</option>)}
             </select>
             {vehicles.length > 1 && (
@@ -87,17 +87,17 @@ export default function FleetPlannerTab({ results: R }: { results: CalcResults }
               { label: 'Fuel/Day ($)',  key: 'fuelD' as keyof FleetVehicle },
               { label: 'Fixed/Mo ($)',  key: 'fixedMo' as keyof FleetVehicle },
             ]).map(({ label, key }) => (
-              <label key={key} className="font-bold uppercase text-slate-500">
+              <label key={key} className="font-bold uppercase text-muted">
                 {label}
                 <input type="number" value={fv[key] as number} onChange={e => updateVehicle(i, key, +e.target.value)}
-                  className="mt-1 w-full border border-slate-200 rounded-lg px-2 py-1.5 text-sm font-medium" />
+                  className="mt-1 w-full border border-line rounded-lg px-2 py-1.5 text-sm font-medium" />
               </label>
             ))}
           </div>
         </div>
       ))}
 
-      <div className="bg-white border border-slate-200 rounded-xl p-4 mb-4 h-52">
+      <div className="bg-surface border border-line rounded-xl p-4 mb-4 h-52">
         <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
       </div>
 
@@ -107,9 +107,9 @@ export default function FleetPlannerTab({ results: R }: { results: CalcResults }
           { label: 'Fleet Daily Cost',    val: fmt(totalCostD), color: 'amber' },
           { label: 'Fleet Daily Net',     val: fmt(totalNetD),  color: totalNetD >= 0 ? 'green' : 'red' },
         ].map(({ label, val, color }) => (
-          <div key={label} className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-center">
-            <div className="text-xs font-bold uppercase text-slate-500">{label}</div>
-            <div className={`text-lg font-extrabold ${color === 'blue' ? 'text-blue-700' : color === 'green' ? 'text-green-700' : color === 'red' ? 'text-red-700' : 'text-amber-600'}`}>{val}</div>
+          <div key={label} className="bg-paper border border-line rounded-lg p-3 text-center">
+            <div className="text-xs font-bold uppercase text-muted">{label}</div>
+            <div className={`text-lg font-extrabold ${color === 'blue' ? 'text-brand-700' : color === 'green' ? 'text-green-700' : color === 'red' ? 'text-red-700' : 'text-amber-600'}`}>{val}</div>
           </div>
         ))}
       </div>
@@ -117,16 +117,16 @@ export default function FleetPlannerTab({ results: R }: { results: CalcResults }
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-slate-200">
+            <tr className="border-b border-line">
               {['Vehicle','Rev/Day','Cost/Day','Net/Day','Margin','Cost/Stop','Annual Net (after tax)'].map(h => (
-                <th key={h} className="text-left py-2 px-3 text-xs font-bold uppercase text-slate-500">{h}</th>
+                <th key={h} className="text-left py-2 px-3 text-xs font-bold uppercase text-muted">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {results.map((r, i) => (
-              <tr key={i} className="border-b border-slate-100">
-                <td className="py-2 px-3 font-semibold text-blue-700">{r.count}x {r.name}</td>
+              <tr key={i} className="border-b border-line">
+                <td className="py-2 px-3 font-semibold text-brand-700">{r.count}x {r.name}</td>
                 <td className="py-2 px-3">{fmt(r.revD)}</td>
                 <td className="py-2 px-3">{fmt(r.costD)}</td>
                 <td className={`py-2 px-3 font-bold ${r.netD >= 0 ? 'text-green-700' : 'text-red-700'}`}>{fmt(r.netD)}</td>
