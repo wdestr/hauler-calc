@@ -28,7 +28,7 @@ export default function SiteHeader() {
         <div className="flex items-center gap-2.5">
           {isPro ? (
             <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-2.5 py-1">
-              <Icon name="spark" size={13} /> PRO
+              <Icon name="spark" size={13} /> PRO{!configured && previewPro ? ' · DEMO' : ''}
             </span>
           ) : (
             <button
@@ -67,7 +67,7 @@ export default function SiteHeader() {
           ) : configured ? (
             <button onClick={openAuth} className="text-sm font-semibold text-ink-soft hover:text-ink px-2 py-1.5">Sign in</button>
           ) : previewPro ? (
-            <button onClick={() => setPreviewPro(false)} className="text-xs font-medium text-muted hover:text-ink px-2 py-1.5" title="Preview mode (no backend configured)">Exit Pro preview</button>
+            <button onClick={() => setPreviewPro(false)} className="text-xs font-medium text-muted hover:text-ink px-2 py-1.5" title="Reset the demo Pro unlock">Reset demo</button>
           ) : null}
         </div>
       </div>

@@ -5,11 +5,16 @@ import { getSupabaseServer } from '@/lib/supabase/server';
 export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
-  const stripe = getStripe();
-  if (!stripe) return NextResponse.json({ error: 'Payments are not configured yet.' }, { status: 503 });
-
   const { interval } = (await request.json().catch(() => ({}))) as { interval?: 'monthly' | 'annual' };
-  const price = priceIdFor(interval === 'annual' ? 'annual' : 'monthly');
+  const iv = interval === 'annual' ? 'annual' : 'monthly';
+
+  // Demo mode — no Stripe keys yet. Route to the in-app demo checkout so the
+  // whole purchase flow works and unlocks Pro. Real Stripe takes over the
+  // moment STRIPE_SECRET_KEY is set (see SETUP.md).
+  const stripe = getStripe();
+  if (!stripe) return NextResponse.json({ url: `/demo-checkout?interval=${iv}`, demo: true });
+
+  const price = priceIdFor(iv);
   if (!price) return NextResponse.json({ error: 'This plan is not configured yet.' }, { status: 503 });
 
   const supabase = await getSupabaseServer();

@@ -71,11 +71,11 @@ export default function ProfileBar({ currentInputs, onLoad }: Props) {
       {active && <>
         <button onClick={() => handleRename(active.id)} aria-label="Rename profile"
           className="px-2 py-1 border border-line rounded-lg text-xs font-bold text-ink-soft">
-          ✎ Rename
+          Rename
         </button>
         <button onClick={() => handleDelete(active.id)} aria-label="Delete profile"
-          className="px-2 py-1 border border-red-400 rounded-lg text-xs font-bold text-red-600">
-          🗑 Delete
+          className="px-2 py-1 border border-loss/40 rounded-lg text-xs font-bold text-loss">
+          Delete
         </button>
       </>}
       {atMax && <span className="text-xs text-amber-600 italic">Max 5 profiles — delete one to save a new profile.</span>}

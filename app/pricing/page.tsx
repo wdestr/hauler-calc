@@ -9,7 +9,7 @@ import { startCheckout } from '@/lib/checkout';
 import { FREE_FEATURES, PRO_FEATURES, PRICING } from '@/lib/plan';
 
 export default function PricingPage() {
-  const { plan, configured, user, setPreviewPro } = usePlan();
+  const { plan, configured, user } = usePlan();
   const { openAuth } = useUI();
   const [interval, setInterval] = useState<'monthly' | 'annual'>('annual');
   const [busy, setBusy] = useState(false);
@@ -19,9 +19,8 @@ export default function PricingPage() {
 
   async function upgrade() {
     if (configured && !user) { openAuth(); return; }
-    if (!configured) { setPreviewPro(true); return; }
     setBusy(true); setErr('');
-    const { error } = await startCheckout(interval);
+    const { error } = await startCheckout(interval); // routes to demo checkout until Stripe keys are set
     if (error) { setErr(error); setBusy(false); }
   }
 
@@ -92,12 +91,12 @@ export default function PricingPage() {
           ) : (
             <button onClick={upgrade} disabled={busy}
               className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold transition-colors disabled:opacity-60">
-              {busy ? 'Redirecting…' : configured ? `Upgrade — ${price.label}${price.per}` : 'Preview Pro'}
+              {busy ? 'Opening checkout…' : `Get Pro — ${price.label}${price.per}`}
             </button>
           )}
           {err && <p className="text-sm text-loss mt-2 text-center">{err}</p>}
           <p className="text-xs text-faint mt-3 text-center">
-            {configured ? 'Secure checkout by Stripe · cancel anytime' : 'Payments configured via SETUP.md · preview unlocks every tool locally'}
+            {configured ? 'Secure checkout by Stripe · cancel anytime' : 'Demo checkout · connect Stripe to take real payments (SETUP.md)'}
           </p>
         </div>
       </div>

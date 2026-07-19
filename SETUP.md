@@ -30,8 +30,8 @@ SUPABASE_SERVICE_ROLE_KEY=...       # service_role — server only, keep secret
 ## 2. Stripe (subscriptions)
 
 1. In [Stripe](https://dashboard.stripe.com) (stay in **Test mode** until you're ready), create **one Product** called "Hauler Calc Pro" with **two prices**:
-   - Recurring **$19 / month**
-   - Recurring **$149 / year**
+   - Recurring **$9 / month**
+   - Recurring **$59 / year**
 2. Copy each **Price ID** (`price_...`).
 3. **Developers → API keys:** copy the **Secret key** (`sk_...`).
 

@@ -4,9 +4,10 @@
 
 export type Plan = 'free' | 'pro';
 
+// Priced for impulse purchase by owner-operators — less than a tank of DEF.
 export const PRICING = {
-  monthly: { amount: 19, label: '$19', per: '/mo', priceEnv: 'NEXT_PUBLIC_STRIPE_PRICE_MONTHLY' },
-  annual: { amount: 149, label: '$149', per: '/yr', priceEnv: 'NEXT_PUBLIC_STRIPE_PRICE_ANNUAL', monthlyEquivalent: 12.42, savingsPct: 35 },
+  monthly: { amount: 9, label: '$9', per: '/mo', priceEnv: 'NEXT_PUBLIC_STRIPE_PRICE_MONTHLY' },
+  annual: { amount: 59, label: '$59', per: '/yr', priceEnv: 'NEXT_PUBLIC_STRIPE_PRICE_ANNUAL', monthlyEquivalent: 4.92, savingsPct: 45 },
 } as const;
 
 // Calculator tabs and whether each requires Pro.

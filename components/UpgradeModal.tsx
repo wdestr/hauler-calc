@@ -8,14 +8,14 @@ import { PRICING, PRO_FEATURES } from '@/lib/plan';
 import { startCheckout } from '@/lib/checkout';
 
 export default function UpgradeModal({ open, onClose, feature }: { open: boolean; onClose: () => void; feature?: string }) {
-  const { configured, user, setPreviewPro } = usePlan();
+  const { configured, user } = usePlan();
   const [interval, setInterval] = useState<'monthly' | 'annual'>('annual');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
 
   async function upgrade() {
     setBusy(true); setErr('');
-    const { error } = await startCheckout(interval);
+    const { error } = await startCheckout(interval); // demo checkout until Stripe keys are set
     if (error) { setErr(error); setBusy(false); }
   }
 
@@ -58,29 +58,16 @@ export default function UpgradeModal({ open, onClose, feature }: { open: boolean
         ))}
       </ul>
 
-      {configured ? (
-        <>
-          <button
-            onClick={upgrade} disabled={busy}
-            className="w-full py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold transition-colors disabled:opacity-60"
-          >
-            {busy ? 'Redirecting to checkout…' : user ? `Upgrade — ${price.label}${price.per}` : 'Sign in & upgrade'}
-          </button>
-          {err && <p className="text-sm text-loss mt-2">{err}</p>}
-          <p className="text-xs text-faint mt-3 text-center">Secure checkout by Stripe · cancel anytime</p>
-        </>
-      ) : (
-        <div className="rounded-lg bg-warn-bg border border-warn/25 px-4 py-3 text-sm">
-          <p className="text-ink font-medium mb-1">Payments aren&rsquo;t switched on yet.</p>
-          <p className="text-muted mb-3">Add your Stripe + Supabase keys (see <code className="text-brand-600">SETUP.md</code>) and this button goes live. Meanwhile, preview every Pro tool:</p>
-          <button
-            onClick={() => { setPreviewPro(true); onClose(); }}
-            className="w-full py-2.5 rounded-lg bg-ink text-white font-semibold text-sm hover:bg-ink-soft transition-colors"
-          >
-            Preview Pro (this device)
-          </button>
-        </div>
-      )}
+      <button
+        onClick={upgrade} disabled={busy}
+        className="w-full py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold transition-colors disabled:opacity-60"
+      >
+        {busy ? 'Opening checkout…' : configured && !user ? 'Sign in & get Pro' : `Get Pro — ${price.label}${price.per}`}
+      </button>
+      {err && <p className="text-sm text-loss mt-2">{err}</p>}
+      <p className="text-xs text-faint mt-3 text-center">
+        {configured ? 'Secure checkout by Stripe · cancel anytime' : 'Demo checkout · connect Stripe for real payments (SETUP.md)'}
+      </p>
     </Modal>
   );
 }

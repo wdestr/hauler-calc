@@ -8,7 +8,6 @@ import { usePlan } from '../PlanProvider';
 import { useUI } from '../UIProvider';
 
 export default function LockGate({ locked, feature, children }: { locked: boolean; feature: string; children: ReactNode }) {
-  const { configured, setPreviewPro } = usePlan();
   const { openUpgrade } = useUI();
   if (!locked) return <>{children}</>;
 
@@ -24,13 +23,8 @@ export default function LockGate({ locked, feature, children }: { locked: boolea
           <p className="text-sm text-muted mt-1.5 mb-5">Unlock the cash-flow timeline, crew models, fleet planner, and truck-financing comparison.</p>
           <button onClick={() => openUpgrade(feature)}
             className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold transition-colors">
-            Unlock Pro
+            Unlock Pro — from $9/mo
           </button>
-          {!configured && (
-            <button onClick={() => setPreviewPro(true)} className="text-xs text-muted hover:text-ink mt-3">
-              Preview without payments (this device)
-            </button>
-          )}
         </div>
       </div>
     </div>

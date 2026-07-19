@@ -200,7 +200,7 @@ export default function TruckAcquisitionTab({
 
       {/* Context strip */}
       <div className="flex flex-wrap items-center gap-3 mb-4 bg-brand-50 border border-brand-100 rounded-xl px-4 py-2 text-sm text-brand-800">
-        <span>📍 Context:</span>
+        <span>Context:</span>
         <span className="font-semibold">{calInputs.stopsPerDay} stops/day</span>
         <span className="text-brand-400">·</span>
         <span className="font-semibold">{calInputs.daysWk} days/week</span>
@@ -224,7 +224,7 @@ export default function TruckAcquisitionTab({
         <div>
 
           {/* Rent */}
-          <Card icon="🔑" title="Rent / Short-Term Lease">
+          <Card icon="" title="Rent / Short-Term Lease">
             <div className="grid grid-cols-2 gap-x-4">
               <NumInput label="Monthly Rent" id="rentCost" value={inputs.rentCost}
                 onChange={v => set('rentCost', v)} prefix="$" />
@@ -240,7 +240,7 @@ export default function TruckAcquisitionTab({
           </Card>
 
           {/* Lease */}
-          <Card icon="📄" title="Lease (Capital / Operating)">
+          <Card icon="" title="Lease (Capital / Operating)">
             <div className="grid grid-cols-2 gap-x-4">
               <NumInput label="Monthly Payment" id="leasePmt" value={inputs.leasePmt}
                 onChange={v => set('leasePmt', v)} prefix="$" />
@@ -265,7 +265,7 @@ export default function TruckAcquisitionTab({
           </Card>
 
           {/* Buy Loan */}
-          <Card icon="🏦" title="Buy — Financed (Loan)">
+          <Card icon="" title="Buy — Financed (Loan)">
             <div className="grid grid-cols-2 gap-x-4">
               <NumInput label="Purchase Price" id="loanPrice" value={inputs.loanPrice}
                 onChange={v => set('loanPrice', v)} prefix="$" />
@@ -284,7 +284,7 @@ export default function TruckAcquisitionTab({
           </Card>
 
           {/* Buy Cash */}
-          <Card icon="💵" title="Buy — Cash / Outright">
+          <Card icon="" title="Buy — Cash / Outright">
             <div className="grid grid-cols-2 gap-x-4">
               <NumInput label="Purchase Price" id="cashPrice" value={inputs.cashPrice}
                 onChange={v => set('cashPrice', v)} prefix="$" />
@@ -298,7 +298,7 @@ export default function TruckAcquisitionTab({
           </Card>
 
           {/* IC Per-Stop */}
-          <Card icon="🤝" title="IC / 1099 — Per-Stop Rate">
+          <Card icon="" title="IC / 1099 — Per-Stop Rate">
             <NumInput label="IC Rate per Stop" id="icRate" value={inputs.icRate}
               onChange={v => set('icRate', v)} prefix="$" step={0.01}
               hint="Replaces labor + vehicle cost when applied" />

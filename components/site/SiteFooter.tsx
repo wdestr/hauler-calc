@@ -19,8 +19,8 @@ export default function SiteFooter() {
           </div>
           <div className="space-y-2">
             <div className="text-faint text-xs font-semibold uppercase tracking-wider">Legal</div>
-            <span className="block text-faint">Terms</span>
-            <span className="block text-faint">Privacy</span>
+            <Link href="/terms" className="block text-ink-soft hover:text-brand-700">Terms</Link>
+            <Link href="/privacy" className="block text-ink-soft hover:text-brand-700">Privacy</Link>
           </div>
         </div>
       </div>

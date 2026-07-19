@@ -106,7 +106,7 @@ export default function HomePage() {
       </section>
 
       {/* ---------- FAQ ---------- */}
-      <section className="max-w-3xl mx-auto px-5 py-16">
+      <section id="faq" className="max-w-3xl mx-auto px-5 py-16 scroll-mt-20">
         <h2 className="display-lg text-3xl text-ink mb-8">Questions haulers ask.</h2>
         <div className="divide-y divide-line">
           <Faq q="Do I need an account to use it?" a="No. The free calculator runs entirely in your browser — nothing to sign up for, and your numbers never leave your device. An account only matters if you want Pro tools and saved profiles synced across devices." />
